@@ -4,6 +4,7 @@
   "description": "囲碁に似た雰囲気の陣とりゲーム",
   "private": true,
   "scripts": {
+    "build:html": "pug -o dist -P src/html/page/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
