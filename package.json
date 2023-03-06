@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build:html": "pug -o dist -P src/html/page/",
+    "build:css": "stylus src/css/index.styl -o dist/upperhand-0.0.1.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
