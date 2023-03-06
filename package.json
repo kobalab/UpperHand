@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/kobalab/UpperHand/issues"
   },
-  "homepage": "https://github.com/kobalab/UpperHand#readme"
+  "homepage": "https://github.com/kobalab/UpperHand#readme",
+  "overrides": {
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "pug-cli": "^1.0.0-alpha6"
+  }
 }
