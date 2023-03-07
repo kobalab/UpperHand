@@ -1,1 +1,37 @@
 @charset "UTF-8"
+
+.ball
+    display: inline-block
+    box-sizing: border-box
+    border-radius: 50%
+    border: solid 2px #ccc
+    &[data-status=""]
+        display: none
+    &[data-status="-1"]
+        border: none
+        border-radius: 0
+        cursor: pointer
+    &[data-status="0"]
+        background: green
+    &[data-status="1"]
+        background: blue
+    &[data-status="2"]
+        background: red
+
+#board
+    display: table
+    background: #ccc
+    border: outset 8px #ccc
+    padding: 4px
+    > .board
+        line-height: 0
+        position: relative
+        > .ball
+            position: absolute
+
+.panel
+    display: inline-block
+    box-sizing: border-box
+    background: #ccc
+    border: solid 1px
+    border-color: #999 #eee #eee #999
