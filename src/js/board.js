@@ -9,6 +9,7 @@ module.exports = class Board {
 
     constructor(root, game, r) {
         this._board = $('.board', root);
+        this._score = $('.score', root);
         this._game  = game;
         this._r     = r;
 
@@ -46,6 +47,12 @@ module.exports = class Board {
         for (let p = 0; p < this._game._status.length; p++) {
             this._status[p].attr('data-status', this._game.status(p) ?? '');
         }
-        console.log(this._game.ball(1), this._game.ball(2));
+        $('span', this._score).eq(0).text(this._game.ball(1));
+        $('span', this._score).eq(1).text(this._game.ball(2));
+        $('span', this._score).removeClass('active');
+        if (this._game.next == 1)
+            $('span', this._score).eq(0).addClass('active');
+        else if (this._game.next == 2)
+            $('span', this._score).eq(1).addClass('active');
     }
 }
