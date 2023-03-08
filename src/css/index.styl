@@ -3,20 +3,18 @@
 .ball
     display: inline-block
     box-sizing: border-box
-    border-radius: 50%
-    border: solid 2px #ccc
+    background-repeat: no-repeat
+    background-size: contain
     &[data-status=""]
         display: none
     &[data-status="-1"]
-        border: none
-        border-radius: 0
         cursor: pointer
     &[data-status="0"]
-        background: green
+        background-image: url('img/ball0.gif')
     &[data-status="1"]
-        background: blue
+        background-image: url('img/ball1.gif')
     &[data-status="2"]
-        background: red
+        background-image: url('img/ball2.gif')
 
 #board
     margin: auto
@@ -40,6 +38,16 @@
             font-size: 16px
             font-family: Verdana, sans-serif
             border: inset 1px
+            background-repeat: no-repeat
+            background-size: contain
+            &[data-status="1"]
+                background-image: url(img/ball1.gif)
+                background-position: left
+                padding-left: 1em
+            &[data-status="2"]
+                background-image: url(img/ball2.gif)
+                background-position: right
+                padding-right: 1em
             &.active
                 font-weight: bold
                 border-style: outset

@@ -47,12 +47,12 @@ module.exports = class Board {
         for (let p = 0; p < this._game._status.length; p++) {
             this._status[p].attr('data-status', this._game.status(p) ?? '');
         }
-        $('span', this._score).eq(0).text(this._game.ball(1));
-        $('span', this._score).eq(1).text(this._game.ball(2));
+        $('span[data-status="1"]', this._score).text(this._game.ball(1));
+        $('span[data-status="2"]', this._score).text(this._game.ball(2));
         $('span', this._score).removeClass('active');
         if (this._game.next == 1)
-            $('span', this._score).eq(0).addClass('active');
+            $('span[data-status="1"]', this._score).addClass('active');
         else if (this._game.next == 2)
-            $('span', this._score).eq(1).addClass('active');
+            $('span[data-status="2"]', this._score).addClass('active');
     }
 }
