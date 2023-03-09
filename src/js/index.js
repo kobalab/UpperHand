@@ -26,8 +26,14 @@ $(function(){
         }
     }
 
-    const game  = new Game();
-    const board = new Board($('#board'), game, 24);
+    let size = + location.hash.replace(/^#/,'') || 5;
+    size = size < 3  ?  3
+         : size > 11 ? 11
+         :             size;
+    let r = Math.min((($('body').width() - 40) / size / 2)|0, 24);
+
+    const game  = new Game(size);
+    const board = new Board($('#board'), game, r);
     board.redraw();
     set_handlar(board);
 });
