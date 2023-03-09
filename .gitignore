@@ -2,3 +2,5 @@ node_modules/
 dist/*.html
 dist/*.css
 dist/*.js
+.nyc_output/
+coverage/
