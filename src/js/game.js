@@ -46,6 +46,14 @@ module.exports = class Game {
         this._next = 1;
     }
 
+    clone() {
+        const obj = new Game(this.size);
+        obj._status = this._status.concat();
+        obj._ball   = this._ball.concat();
+        obj._next   = this._next;
+        return obj;
+    }
+
     get length() { return this._status.length }
     get size()   { return this._size }
     get next() {
@@ -87,6 +95,7 @@ module.exports = class Game {
             else              this._status[q] = -1;
         }
         this._next = this._next == 1 ? 2 : 1;
+        return this;
     }
 
     toString() {
