@@ -34,6 +34,37 @@ function makePriorityOfPosition(game) {
     return position.sort((a, b)=> weight[b] - weight[a]);
 }
 
+function getValue(game) {
+    if (! game.next) {
+        return game.length / 2 - game.ball(1) + game.ball(2);
+    }
+    else {
+        let ev = [], rv = 0;
+        for (let p = 0; p < game.length; p++) {
+            if      (game.status(p) == -1) ev[p] = 0.5;
+            else if (game.status(p) ==  0) ev[p] = 0.5;
+            else if (game.status(p) ==  1) ev[p] = 1.0;
+            else if (game.status(p) ==  2) ev[p] = 0.0;
+            else {
+                let [ e1, e2, e3, e4 ] = game.child(p).map(q => ev[q]);
+                ev[p] = e1 * e2 * e3 * e4
+                      + (1 - e1) * e2 * e3 * e4
+                      + e1 * (1 - e2) * e3 * e4
+                      + e1 * e2 * (1 - e3) * e4
+                      + e1 * e2 * e3 * (1 - e4)
+                      + (1 - e1) * (1 - e2) * e3 * e4 * 0.5
+                      + (1 - e1) * e2 * (1 - e3) * e4 * 0.5
+                      + (1 - e1) * e2 * e3 * (1 - e4) * 0.5
+                      + e1 * (1 - e2) * (1 - e3) * e4 * 0.5
+                      + e1 * (1 - e2) * e3 * (1 - e4) * 0.5
+                      + e1 * e2 * (1 - e3) * (1 - e4) * 0.5;
+            }
+            rv += ev[p];
+        }
+        return rv;
+    }
+}
+
 module.exports = class Player {
 
     constructor(game) {
@@ -42,8 +73,18 @@ module.exports = class Player {
     }
 
     selectMove() {
+        let rv, max = 0;
         for (let p of this._posision) {
-            if (this._game.status(p) == -1) return p;
+            if (this._game.status(p) != -1) continue;
+            let ev = this._game.next == 1
+                        ? getValue(this._game.clone().makeMove(p))
+                        : this._game.length
+                            - getValue(this._game.clone().makeMove(p));
+            if (ev > max) {
+                max = ev;
+                rv  = p;
+            }
         }
+        return rv;
     }
 }
