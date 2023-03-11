@@ -12,6 +12,7 @@ module.exports = class Controller {
     constructor(root, game, r) {
         this._game  = game;
         this._board = new Board(root, game, r);
+        this._board.redraw();
     }
 
     start(...players) {
