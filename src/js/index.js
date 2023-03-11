@@ -7,24 +7,10 @@
  */
 
 const $ = require('jquery');
-const Game  = require('./game');
-const Board = require('./board');
+const Game       = require('./game');
+const Controller = require('./controller');
 
 $(function(){
-
-    function set_handlar(board) {
-        board._status.forEach(s=> s.off('click'));
-        if (! board._game.next) return;
-        for (let p = 0; p < board._status.length; p++) {
-            if (board._game.status(p) == -1) {
-                board._status[p].on('click', ()=>{
-                    board._game.makeMove(p);
-                    board.redraw();
-                    set_handlar(board);
-                });
-            }
-        }
-    }
 
     let size = + location.hash.replace(/^#/,'') || 5;
     size = size < 3  ?  3
@@ -32,8 +18,6 @@ $(function(){
          :             size;
     let r = Math.min((($('body').width() - 40) / size / 2)|0, 24);
 
-    const game  = new Game(size);
-    const board = new Board($('#board'), game, r);
-    board.redraw();
-    set_handlar(board);
+    const game = new Game(size);
+    new Controller($('#board'), game, r).start();
 });
