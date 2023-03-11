@@ -43,6 +43,8 @@ module.exports = class Board {
         }
     }
 
+    get status() { return this._status }
+
     redraw() {
         for (let p = 0; p < this._game.length; p++) {
             this._status[p].attr('data-status', this._game.status(p) ?? '');
