@@ -8,6 +8,7 @@
 
 const $ = require('jquery');
 const Game       = require('./game');
+const Player     = require('./player');
 const Controller = require('./controller');
 
 $(function(){
@@ -19,5 +20,5 @@ $(function(){
     let r = Math.min((($('body').width() - 40) / size / 2)|0, 24);
 
     const game = new Game(size);
-    new Controller($('#board'), game, r).start();
+    new Controller($('#board'), game, r).start(null, new Player(game));
 });

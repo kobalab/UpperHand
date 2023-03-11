@@ -18,18 +18,25 @@ module.exports = class Controller {
 
         this._selectMove = [];
 
-        for (let player of [ 1, 2 ]) {
-            this._selectMove[player] = ()=>{
-                for (let p = 0; p < this._game.length; p++) {
-                    if (this._game.status(p) == -1) {
-                        this._board.status[p].on('click', ()=>{
-                            this._board.status.forEach(s => s.off('click'));
-                            this.move(p);
-                            this.next();
-                        });
+        for (let i of [ 1, 2 ]) {
+            const player = players.shift();
+            if (player) {
+                this._selectMove[i] = ()=> setTimeout(
+                    ()=> this.move(player.selectMove()), 0);
+            }
+            else {
+                this._selectMove[i] = ()=>{
+                    for (let p = 0; p < this._game.length; p++) {
+                        if (this._game.status(p) == -1) {
+                            this._board.status[p].on('click', ()=>{
+                                this._board.status.forEach(s => s.off('click'));
+                                this.move(p);
+                                this.next();
+                            });
+                        }
                     }
-                }
-            };
+                };
+            }
         }
 
         this._moved = true;
