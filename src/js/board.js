@@ -44,7 +44,7 @@ module.exports = class Board {
     }
 
     redraw() {
-        for (let p = 0; p < this._game._status.length; p++) {
+        for (let p = 0; p < this._game.length; p++) {
             this._status[p].attr('data-status', this._game.status(p) ?? '');
         }
         $('span[data-status="1"]', this._score).text(this._game.ball(1));

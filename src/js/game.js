@@ -46,7 +46,8 @@ module.exports = class Game {
         this._next = 1;
     }
 
-    get size() { return this._size }
+    get length() { return this._status.length }
+    get size()   { return this._size }
     get next() {
         if (this._ball[1] == 0 || this._ball[2] == 0) return;
         return this._next;
