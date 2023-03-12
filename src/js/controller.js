@@ -27,7 +27,7 @@ module.exports = class Controller {
             const player = players.shift();
             if (player) {
                 this._selectMove[i] = ()=> setTimeout(
-                    ()=> this.move(player.selectMove()), 0);
+                    ()=> this.move(player.selectMove()), 10);
             }
             else {
                 this._selectMove[i] = ()=>{
