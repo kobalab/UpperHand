@@ -19,11 +19,14 @@ $(function(){
          :             size;
     let r = Math.min((($('body').width() - 40) / size / 2)|0, 24);
 
-    function start() {
+    level = 3;
+
+    function start(first) {
         const game = new Game(size);
-        new Controller($('#board'), game, r, start)
-                            .start(null, new Player(game));
+        const ctrl = new Controller($('#board'), game, r, ()=>start(! first));
+        if (first) ctrl.start(null, new Player(game, level));
+        else       ctrl.start(new Player(game, level), null);
     }
 
-    start();
+    start(1);
 });
