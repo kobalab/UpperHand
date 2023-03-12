@@ -9,9 +9,13 @@ const Board = require('./board');
 
 module.exports = class Controller {
 
-    constructor(root, game, r) {
+    constructor(root, game, r, callback) {
+        this._root  = root;
         this._game  = game;
         this._board = new Board(root, game, r);
+        this._callback = callback;
+
+        this._root.off('click');
         this._board.redraw();
     }
 
@@ -33,6 +37,7 @@ module.exports = class Controller {
                                 this._board.status.forEach(s => s.off('click'));
                                 this.move(p);
                                 this.next();
+                                return false;
                             });
                         }
                     }
@@ -49,7 +54,10 @@ module.exports = class Controller {
         if (! this._moved) return;
 
         this._board.redraw();
-        if (! this._game.next) return;
+        if (! this._game.next) {
+            this._root.on('click', ()=> this._callback());
+            return;
+        }
 
         this._moved = false;
         this._selectMove[this._game.next]();

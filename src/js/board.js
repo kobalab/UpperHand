@@ -15,7 +15,8 @@ module.exports = class Board {
 
         let size = game.size;
         this._board.css('width',  `${r * 2 * size}px`)
-                   .css('height', `${r * 2 * size}px`);
+                   .css('height', `${r * 2 * size}px`)
+                   .empty();
         for (let i = 0; i < size * size; i++) {
             const panel = $('<span>')
                             .addClass('panel')
