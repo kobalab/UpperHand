@@ -101,7 +101,7 @@ module.exports = class Player {
 
     depth() {
         if (this._level < 3) return this._level;
-        return 3;
+        return Math.max((50 / (this._game.moves().length))|0, 3);
     }
 
     selectMove() {
