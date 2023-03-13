@@ -65,7 +65,7 @@ function getValue(game) {
     }
 }
 
-function evaluate(game, player, depth, position) {
+function evaluate(game, player, depth, position, a, b) {
 
     if (! game.next || ! depth) {
         return player == 1
@@ -73,13 +73,20 @@ function evaluate(game, player, depth, position) {
                     : game.length - getValue(game);
     }
 
-    let max = 0, min = game.length;
+    let max = a, min = b;
     for (let p of position) {
         if (game.status(p) != -1) continue;
         let ev = evaluate(game.clone().makeMove(p),
-                                player, depth - 1, position);
-        if (game.next == player) max = ev > max ? ev : max;
-        else                     min = ev < min ? ev : min;
+                                player, depth - 1, position,
+                                max, min);
+        if (game.next == player) {
+            if (ev >= b) return b;
+            max = ev > max ? ev : max;
+        }
+        else {
+            if (ev <= a) return a;
+            min = ev < min ? ev : min;
+        }
     }
     return game.next == player ? max : min;
 }
@@ -108,11 +115,12 @@ module.exports = class Player {
             return;
         }
 
-        let rv, max = 0;
+        let rv, max = 0, min = this._game.length;
         for (let p of this._posision) {
             if (this._game.status(p) != -1) continue;
             let ev = evaluate(this._game.clone().makeMove(p),
-                                this._game.next, depth - 1, this._posision);
+                                this._game.next, depth - 1, this._posision,
+                                max, min);
             if (ev > max) {
                 max = ev;
                 rv  = p;
