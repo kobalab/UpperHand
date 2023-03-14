@@ -23,8 +23,11 @@ html(lang="ja")
       img(src="icon.png")
       |  UpperHand
       span.version ver.#{version}
+    include navi
     #board
       .board
       .score
         span(data-status="1")
         span(data-status="2")
+    include rule
+    
