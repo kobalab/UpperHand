@@ -100,6 +100,7 @@ module.exports = class Player {
     }
 
     depth() {
+        if (! this._game._status.find(s=> s == 2)) return 0;
         if (this._level < 3) return this._level;
         return Math.max((50 / (this._game.moves().length))|0, 3);
     }
