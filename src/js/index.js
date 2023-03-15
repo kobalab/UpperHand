@@ -1,5 +1,5 @@
 /*!
- *  UpperHand Game v0.0.1
+ *  UpperHand Game v0.1.0
  *
  *  Copyright(C) 2023 Satoshi Kobayashi
  *  Released under the MIT license
