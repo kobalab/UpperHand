@@ -1,5 +1,5 @@
 /*!
- *  UpperHand Game v1.0.0
+ *  UpperHand Game v1.0.1
  *
  *  Copyright(C) 2023 Satoshi Kobayashi
  *  Released under the MIT license
@@ -24,10 +24,10 @@ $(function(){
     level = level == '0' ? 0 : + level || 2;
 
     if (turn == 3) {
-        $('select[name="turn"] option:not([value="3"])').hide();
+        $('select[name="turn"] option:not([value="3"])').remove();
     }
     else {
-        $('select[name="turn"] option[value="3"]').hide();
+        $('select[name="turn"] option[value="3"]').remove();
     }
 
     function start() {
