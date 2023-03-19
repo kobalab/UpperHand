@@ -23,6 +23,13 @@ $(function(){
     turn  = + turn  || 1;
     level = level == '0' ? 0 : + level || 2;
 
+    if (turn == 3) {
+        $('select[name="turn"] option:not([value="3"])').hide();
+    }
+    else {
+        $('select[name="turn"] option[value="3"]').hide();
+    }
+
     function start() {
 
         size  = + $('select[name="size"]').val();
