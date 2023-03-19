@@ -32,6 +32,9 @@ $(function(){
 
     function start() {
 
+        $('#pref').hide();
+        $('#rule').hide();
+
         size  = + $('select[name="size"]').val();
         level = + $('select[name="level"]').val();
         turn  = + $('select[name="turn"]').val();
@@ -46,15 +49,34 @@ $(function(){
         else                 ctrl.start(new Player(game, level - 1),
                                         new Player(game, level - 1));
 
+        $('#board').fadeIn();
+
         return false;
     }
 
     function reset() {
+        $('#pref').hide();
+        $('#rule').hide();
+        $('#board').show();
+
         $('select[name="size"]').val(size);
         $('select[name="level"]').val(level);
         $('select[name="turn"]').val(turn);
         return false;
     }
+
+    $('a[href="#pref"]').on('click', ()=>{
+        $('#board').hide();
+        $('#rule').hide();
+        $('#pref').slideDown();
+        return false;
+    });
+    $('a[href="#rule"]').on('click', ()=>{
+        $('#board').hide();
+        $('#pref').hide();
+        $('#rule').slideDown();
+        return false;
+    });
 
     $('form').on('submit', start);
     $('form').on('reset',  reset);
