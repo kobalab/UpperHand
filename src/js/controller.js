@@ -49,8 +49,14 @@ module.exports = class Controller {
         this.next();
     }
 
-    next() {
+    stop() {
+        this._stop = true;
+    }
+
+    next(start) {
         if (this._timeoutID) this._timeoutID = clearTimeout(this._timeoutID);
+        if (start) this._stop = false;
+        if (this._stop) return;
         if (! this._moved) return;
 
         this._board.redraw();
