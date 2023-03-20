@@ -30,6 +30,8 @@ $(function(){
         $('select[name="turn"] option[value="3"]').remove();
     }
 
+    let ctrl;
+
     function start() {
 
         $('#pref').hide();
@@ -42,7 +44,7 @@ $(function(){
         let r = Math.min((($('body').width() - 40) / size / 2)|0, 24);
 
         const game = new Game(size);
-        const ctrl = new Controller($('#board'), game, r, start);
+        ctrl = new Controller($('#board'), game, r, start);
         if      (level == 0) ctrl.start(null, null);
         else if (turn  == 1) ctrl.start(null, new Player(game, level - 1));
         else if (turn  == 2) ctrl.start(new Player(game, level - 1), null);
@@ -59,6 +61,8 @@ $(function(){
         $('#rule').hide();
         $('#board').show();
 
+        if (ctrl) ctrl.next(true);
+
         $('select[name="size"]').val(size);
         $('select[name="level"]').val(level);
         $('select[name="turn"]').val(turn);
@@ -69,12 +73,14 @@ $(function(){
         $('#board').hide();
         $('#rule').hide();
         $('#pref').slideDown();
+        if (ctrl) ctrl.stop();
         return false;
     });
     $('a[href="#rule"]').on('click', ()=>{
         $('#board').hide();
         $('#pref').hide();
         $('#rule').slideDown();
+        if (ctrl) ctrl.stop();
         return false;
     });
 
