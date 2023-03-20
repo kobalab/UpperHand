@@ -30,16 +30,16 @@ $(function(){
         $('select[name="turn"] option[value="3"]').remove();
     }
 
+    let pref = JSON.parse(localStorage.getItem('UpperHand.pref')||'{}');
+    size  = pref.size ?? size;
+    level = pref.level ?? level;
+
     let ctrl;
 
     function start() {
 
         $('#pref').hide();
         $('#rule').hide();
-
-        size  = + $('select[name="size"]').val();
-        level = + $('select[name="level"]').val();
-        turn  = + $('select[name="turn"]').val();
 
         let r = Math.min((($('body').width() - 40) / size / 2)|0, 24);
 
@@ -52,6 +52,16 @@ $(function(){
                                         new Player(game, level - 1));
 
         $('#board').fadeIn();
+    }
+
+    function submit() {
+        size  = + $('select[name="size"]').val();
+        level = + $('select[name="level"]').val();
+        turn  = + $('select[name="turn"]').val();
+        localStorage.setItem(
+            'UpperHand.pref', JSON.stringify({ size: size, level: level }));
+
+        start();
 
         return false;
     }
@@ -84,7 +94,7 @@ $(function(){
         return false;
     });
 
-    $('form').on('submit', start);
+    $('form').on('submit', submit);
     $('form').on('reset',  reset);
 
     reset();
