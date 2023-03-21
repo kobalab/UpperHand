@@ -30,11 +30,14 @@ $(function(){
         $('select[name="turn"] option[value="3"]').remove();
     }
 
-    let pref = JSON.parse(localStorage.getItem('UpperHand.pref')||'{}');
-    size  = pref.size ?? size;
-    level = pref.level ?? level;
-
     let ctrl;
+
+    if (! location.hash) {
+        let pref = JSON.parse(localStorage.getItem('UpperHand.pref')||'{}');
+        size  = pref.size ?? size;
+        level = pref.level ?? level;
+        reset();
+    }
 
     function start() {
 
@@ -70,16 +73,14 @@ $(function(){
         $('#pref').hide();
         $('#rule').hide();
         $('#board').show();
-
         if (ctrl) ctrl.next(true);
-
-        $('select[name="size"]').val(size);
-        $('select[name="level"]').val(level);
-        $('select[name="turn"]').val(turn);
         return false;
     }
 
     $('a[href="#pref"]').on('click', ()=>{
+        $('select[name="size"]').val(size);
+        $('select[name="level"]').val(level);
+        $('select[name="turn"]').val(turn);
         $('#board').hide();
         $('#rule').hide();
         $('#pref').slideDown();
@@ -97,6 +98,5 @@ $(function(){
     $('form').on('submit', submit);
     $('form').on('reset',  reset);
 
-    reset();
     start();
 });
